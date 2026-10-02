@@ -1,0 +1,119 @@
+// LikeC4 model for the todo app.
+// Source: docs/system.md (v0.1). IDs in descriptions refer to that document.
+// Each element and relationship is tagged with the release that adds it.
+// Updates in a later release do not change the tag. They are noted in the description.
+
+model {
+
+  user = actor 'Todo user' {
+    #r1
+    description 'A-1. Human. Creates and views todos through a frontend app. Present in all releases.'
+  }
+
+  todoApp = system 'Todo App' {
+    #r1
+    description 'Single-user todo app (section 1.1). Runs on a local machine and is never exposed to the public internet. One shared list across all frontends.'
+
+    frontendWeb = subsystem 'frontend-web' {
+      #r1
+      description 'S-1. User web app frontend to todos.'
+
+      webFe = component 'web-fe' {
+        #r1
+        technology 'Astro'
+        description 'C-1. Web application (CAP-4, ADR 0001). Creates and lists todos (CAP-1, CAP-2). Updated in r3 to delete todos (CAP-3). Shows todo text as plain text, never as markup.'
+      }
+    }
+
+    backend = subsystem 'backend' {
+      #r1
+      description 'S-2. Owns the lifecycle of todos and their storage. Implements I-1 api-todo.'
+
+      todoApi = component 'todo-api' {
+        #r1
+        technology 'Next.js'
+        description 'C-2. API server (ADR 0002). Implements I-1 api-todo, a REST API described in OpenAPI (ADR 0004). Checks text is 1 to 280 characters, makes the id, returns the list oldest first, reports health. Updated in r3 to delete todos (CAP-3).'
+      }
+
+      todoStore = store 'todo-store' {
+        #r1
+        technology 'Text files'
+        description 'C-3. One text file per todo, no database (ADR 0003). Holds D-1 Todo: id, text, created time. File name comes from the id, never from the text. Only todo-api reads and writes it. No backup. Updated in r3 so files can be removed.'
+      }
+    }
+
+    frontendIos = subsystem 'frontend-ios' {
+      #r2
+      description 'S-3. User iOS app frontend to todos.'
+
+      iosFe = component 'ios-fe' {
+        #r2
+        technology 'SwiftUI'
+        description 'C-4. iOS application (CAP-5, ADR 0005). Runs in the Xcode simulator, no App Store. Creates and lists todos. Updated in r3 to delete todos (CAP-3). system.md lists the owner as S-1. This model places it in S-3. See the open questions in the PR.'
+      }
+    }
+  }
+
+  // r1: create and view through the web frontend
+
+  user -> todoApp.frontendWeb.webFe 'creates and views todos' {
+    #r1
+    description 'A-1 uses CAP-1 and CAP-2 through the web frontend (CAP-4). Flows F-1, F-2.'
+  }
+
+  todoApp.frontendWeb.webFe -> todoApp.backend.todoApi 'creates and lists todos' {
+    #r1
+    technology 'REST, OpenAPI'
+    description 'I-1 api-todo. Create and view operations. Flows F-1, F-2.'
+  }
+
+  todoApp.backend.todoApi -> todoApp.backend.todoStore 'writes and reads todo files' {
+    #r1
+    technology 'File system'
+    description 'D-1 Todo stored as one file per todo. A failed create must not leave a half-written todo.'
+  }
+
+  // r2: create and view through the iOS frontend
+
+  user -> todoApp.frontendIos.iosFe 'creates and views todos' {
+    #r2
+    description 'A-1 uses CAP-1 and CAP-2 through the iOS frontend (CAP-5). Flows F-1, F-2.'
+  }
+
+  todoApp.frontendIos.iosFe -> todoApp.backend.todoApi 'creates and lists todos' {
+    #r2
+    technology 'REST, OpenAPI'
+    description 'I-1 api-todo. Same contract as the web frontend. Flows F-1, F-2.'
+  }
+
+  // r3: delete through both frontends
+
+  user -> todoApp.frontendWeb.webFe 'deletes todos' {
+    #r3
+    description 'A-1 uses CAP-3 through the web frontend. Flow F-3.'
+  }
+
+  user -> todoApp.frontendIos.iosFe 'deletes todos' {
+    #r3
+    description 'A-1 uses CAP-3 through the iOS frontend. Flow F-3.'
+  }
+
+  todoApp.frontendWeb.webFe -> todoApp.backend.todoApi 'deletes todos by id' {
+    #r3
+    technology 'REST, OpenAPI'
+    description 'I-1 api-todo. Delete operation. Flow F-3.'
+  }
+
+  todoApp.frontendIos.iosFe -> todoApp.backend.todoApi 'deletes todos by id' {
+    #r3
+    technology 'REST, OpenAPI'
+    description 'I-1 api-todo. Delete operation. Flow F-3.'
+  }
+
+  todoApp.backend.todoApi -> todoApp.backend.todoStore 'removes todo files' {
+    #r3
+    technology 'File system'
+    description 'D-1 Todo file removed on delete. Flow F-3.'
+  }
+
+}
