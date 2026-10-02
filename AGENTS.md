@@ -56,3 +56,14 @@ You assist the architect. You draft. The architect decides and merges.
 - End with a trace table: input in system.md or functional rule, NFR, applies to, stage, release.
 - Define one reference environment at the top of the file, marked Proposed. Every condition refers to it.
 - A percentile needs at least 100 samples. Where that costs too much, state a maximum, and set it higher than the percentile target.
+
+## ADRs
+- Write one ADR per decision in `architecture/adr/NNNN-title.md`. Use the numbers in system.md. A number never changes.
+- Sections: Status, Context, Options considered, Decision, Consequences, Affects, Related.
+- Status is Proposed. Only the architect sets Accepted or Superseded.
+- Context, Decision and the reason come only from system.md. Do not invent a reason.
+- Options considered: list at least two, including the chosen one. An option that system.md does not name is marked "Suggested, not decided". The architect confirms or removes it.
+- Consequences: say what gets easier and what gets harder.
+- Affects: the S-n and C-n IDs. Related: the NFR, FR and ADR IDs that the decision touches.
+- A decision that changes is a new ADR that supersedes the old one. Do not rewrite an accepted ADR.
+- Put every missing reason or option in your reply, and write "Not stated in system.md" in the ADR.
