@@ -52,3 +52,5 @@ You assist the architect. You draft. The architect decides and merges.
 - Tag each NFR with the release from which it must hold.
 - Do not repeat a functional rule. Refer to it by ID.
 - End with a trace table: input in system.md or functional rule, NFR, applies to, stage, release.
+- Define one reference environment at the top of the file, marked Proposed. Every condition refers to it.
+- A percentile needs at least 100 samples. Where that costs too much, state a maximum, and set it higher than the percentile target.
