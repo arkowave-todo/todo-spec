@@ -23,3 +23,13 @@ You assist the architect. You draft. The architect decides and merges.
 - Put the `system.md` ID (for example B-2) in the description of each element.
 - Validate from inside the folder: `cd architecture && npx likec4 validate`.
   It checks every `.c4` file there. Fix every error before you finish.
+
+## Requirements
+- Write functional requirements in `requirements/functional.md`, one per user-visible capability.
+- State each rule once, in the requirement that owns it. Other requirements refer to it.
+- Tag every scenario, and every part of a statement, with its release.
+- Every rule needs a scenario, or a note that a non-functional requirement covers it.
+- Do not name components. Do not invent behaviour that system.md does not state.
+- Refer to system.md by ID or section title, never by line number.
+- End with a trace table: CAP, FR, scenarios, flow, release.
+- Put what you could not state without guessing in your reply, not in the file.

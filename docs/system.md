@@ -1,7 +1,7 @@
 # System Description: Todo App
 
 ## 0. Document Control
-- Version: 0.3.
+- Version: 0.4.
 - Owner: the architect.
 
 ## 1. System Boundary
@@ -21,8 +21,11 @@ A simple todo single-user app. A person can create, view and delete todos.
 | CAP-5 | User can use an iOS frontend | r2 |
 
 Rules:
-- A todo text has 1 to 280 characters.
-- The list shows the oldest todo first.
+- A todo text has 1 to 280 characters, counted as Unicode characters.
+- Leading and trailing spaces are removed before the check and before saving. A text that is empty after this is refused.
+- A todo text is one line. A text with a line break is refused.
+- Duplicate texts are allowed.
+- The list shows the oldest todo first, by created time. If two todos have the same time, they are ordered by id.
 - Todo text is shown as plain text, never as markup.
 
 ### 1.3. Actors
@@ -159,7 +162,8 @@ Error:
 
 ### 4.3. Error Handling and Fallbacks
 
-- N/A
+- If the API cannot be reached, or a file cannot be read or written, the frontend shows a message and changes nothing.
+- The API never leaves a partial todo.
 
 ## 5. Release Strategy
 ### 5.1. Release Plan
