@@ -35,3 +35,8 @@ You assist the architect. You draft. The architect decides and merges.
 - Put what you could not state without guessing in your reply, not in the file.
 - IDs: requirements are FR-n, rules are FR-n.Rm, scenarios are FR-n.Sm.
 - A rule that applies to several capabilities or channels gets its own requirement. Trace it to the section of system.md that states it.
+- Write every scenario as Given, When, Then, with all three parts.
+- One outcome per scenario. Put variants in a list of examples under it.
+- A requirement for a channel refers to the scenarios it reuses. It does not copy them.
+- A rule's scenarios hold on every channel that exists at that release or later. Do not list each combination.
+- Examples must not assume a format that system.md leaves open. Use placeholders (X, Y) for such values.
