@@ -1,7 +1,7 @@
 # System Description: Todo App
 
 ## 0. Document Control
-- Version: 0.7.
+- Version: 0.8.
 - Owner: the architect.
 
 ## 1. System Boundary
@@ -85,8 +85,8 @@ Each one becomes an ADR in `architecture/adr/`. All are proposed until the archi
 | 0003 | One text file per todo, no database | Simple, and enough for this scale |
 | 0004 | REST with an OpenAPI contract, owned by `todo-spec` | Teams work in parallel against one contract |
 | 0005 | iOS in SwiftUI, tested in the Xcode simulator, no App Store | Keeps r2 small |
-| 0006 | One repo per subsystem  | Team and permission boundaries |
-| 0007 | One repo for the spec (`todo-spec`) and one repos for the project environment (`todo-platform`) | Team and permission boundaries |
+| 0006 | One repo per subsystem | Team and permission boundaries |
+| 0007 | One repo for the spec (`todo-spec`) and one repo for the project environment (`todo-platform`) | Team and permission boundaries |
 
 ## 3. System Architecture
 
