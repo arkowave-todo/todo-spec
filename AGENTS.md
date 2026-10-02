@@ -20,7 +20,7 @@ You assist the architect. You draft. The architect decides and merges.
 
 # Architecture model
 - Write LikeC4 files in `architecture/`: `specification.c4`, `model.c4`, `views.c4`.
-- Put the `system.md` ID (for example B-2) in the description of each element.
+- Put the `system.md` ID (for example C-2) in the description of each element.
 - Validate from inside the folder: `cd architecture && npx likec4 validate`.
   It checks every `.c4` file there. Fix every error before you finish.
 
@@ -33,3 +33,5 @@ You assist the architect. You draft. The architect decides and merges.
 - Refer to system.md by ID or section title, never by line number.
 - End with a trace table: CAP, FR, scenarios, flow, release.
 - Put what you could not state without guessing in your reply, not in the file.
+- IDs: requirements are FR-n, rules are FR-n.Rm, scenarios are FR-n.Sm.
+- A rule that applies to several capabilities or channels gets its own requirement. Trace it to the section of system.md that states it.

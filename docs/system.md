@@ -1,7 +1,7 @@
 # System Description: Todo App
 
 ## 0. Document Control
-- Version: 0.4.
+- Version: 0.5.
 - Owner: the architect.
 
 ## 1. System Boundary
@@ -21,12 +21,13 @@ A simple todo single-user app. A person can create, view and delete todos.
 | CAP-5 | User can use an iOS frontend | r2 |
 
 Rules:
-- A todo text has 1 to 280 characters, counted as Unicode characters.
-- Leading and trailing spaces are removed before the check and before saving. A text that is empty after this is refused.
-- A todo text is one line. A text with a line break is refused.
+- A todo text has 1 to 280 characters, counted as Unicode code points.
+- Leading and trailing whitespace (spaces, tabs and line breaks) is removed before the check and before saving. A text that is empty after this is refused.
+- A todo text is one line. A line break inside the text is refused. A line break is LF, CR, U+0085, U+2028 or U+2029.
 - Duplicate texts are allowed.
-- The list shows the oldest todo first, by created time. If two todos have the same time, they are ordered by id.
+- The list shows the oldest todo first, by created time. If two todos have the same time, they are ordered by id, ascending, compared as text.
 - Todo text is shown as plain text, never as markup.
+- There is one list. All frontends show the same list.
 
 ### 1.3. Actors
 
@@ -57,7 +58,7 @@ r3
 
 #### 1.4.2. Out-of-Scope
 
-- Accounts, login and multiple users. There is a single user app with one shared list across all UI channels.
+- Accounts, login and multiple users. There is a single user app.
 - Edit, complete, tag, search or sort todos
 - Sync between devices other than through the API
 - Offline use, notifications, import and export
@@ -140,7 +141,7 @@ Rules:
 5. The frontend shows the todo in the list.
 
 Error: 
-- if the text is empty or too long, the API refuses it and the frontend shows a message.
+- if the text is refused (empty, too long, or it has a line break), the API refuses it and the frontend shows a message.
 
 #### F-2 View todos
 1. The user opens the frontend.
