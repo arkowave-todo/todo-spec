@@ -1,5 +1,5 @@
 // LikeC4 model for the todo app.
-// Source: docs/system.md (v0.1). IDs in descriptions refer to that document.
+// Source: docs/system.md (v0.2). IDs in descriptions refer to that document.
 // Each element and relationship is tagged with the release that adds it.
 // Updates in a later release do not change the tag. They are noted in the description.
 
@@ -38,7 +38,7 @@ model {
       todoStore = store 'todo-store' {
         #r1
         technology 'Text files'
-        description 'C-3. One text file per todo, no database (ADR 0003). Holds D-1 Todo: id, text, created time. File name comes from the id, never from the text. Only todo-api reads and writes it. No backup. Updated in r3 so files can be removed.'
+        description 'C-3. One text file per todo, no database (ADR 0003). Holds D-1 Todo: id, text, created time. File name comes from the id, never from the text. Only todo-api reads and writes it. No backup. Not updated in r3: todo-api removes files for delete (F-3).'
       }
     }
 
@@ -49,7 +49,7 @@ model {
       iosFe = component 'ios-fe' {
         #r2
         technology 'SwiftUI'
-        description 'C-4. iOS application (CAP-5, ADR 0005). Runs in the Xcode simulator, no App Store. Creates and lists todos. Updated in r3 to delete todos (CAP-3). system.md lists the owner as S-1. This model places it in S-3. See the open questions in the PR.'
+        description 'C-4. iOS application (CAP-5, ADR 0005). Runs in the Xcode simulator, no App Store. Creates and lists todos. Updated in r3 to delete todos (CAP-3).'
       }
     }
   }
