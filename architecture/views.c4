@@ -1,5 +1,5 @@
 // LikeC4 views for the todo app.
-// Source: docs/system.md (v0.2).
+// Source: docs/system.md.
 // Release views are cumulative: each shows the system as it stands after that release.
 // In the r2 view the elements new in r2 are shown in green.
 // r3 adds only relationships, which carry the #r3 tag.
@@ -65,7 +65,7 @@ views {
 
   dynamic view flow_f1_create {
     title 'F-1 Create a todo'
-    description 'r1. CAP-1. Error: if the text is empty or longer than 280 characters, the API refuses it and the frontend shows a message.'
+    description 'r1. Flow F-1 (section 4.2), CAP-1. Error handling: F-1 error, section 4.3.'
 
     user -> todoApp.frontendWeb.webFe 'types a text and submits it'
     todoApp.frontendWeb.webFe -> todoApp.backend.todoApi 'sends the text'
@@ -76,7 +76,7 @@ views {
 
   dynamic view flow_f2_view {
     title 'F-2 View todos'
-    description 'r1. CAP-2. List is oldest first. Exception: if there are no todos, the frontend shows a message.'
+    description 'r1. Flow F-2 (section 4.2), CAP-2. Exception: F-2.'
 
     user -> todoApp.frontendWeb.webFe 'opens the frontend'
     todoApp.frontendWeb.webFe -> todoApp.backend.todoApi 'asks for the list'
@@ -87,7 +87,7 @@ views {
 
   dynamic view flow_f3_delete {
     title 'F-3 Delete a todo'
-    description 'r3. CAP-3. If the id is unknown, the API says so. Step 4 runs F-2 to refresh the list, so the F-2 exception applies: if there are no todos, the frontend shows a message.'
+    description 'r3. Flow F-3 (section 4.2), CAP-3. Error: F-3. Step 4 runs F-2 from step 2.'
 
     user -> todoApp.frontendWeb.webFe 'chooses delete on a todo'
     todoApp.frontendWeb.webFe -> todoApp.backend.todoApi 'asks to delete it by id'
