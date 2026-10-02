@@ -1,5 +1,5 @@
 // LikeC4 views for the todo app.
-// Source: docs/system.md (v0.1).
+// Source: docs/system.md (v0.2).
 // Release views are cumulative: each shows the system as it stands after that release.
 // In the r2 view the elements new in r2 are shown in green.
 // r3 adds only relationships, which carry the #r3 tag.
@@ -53,7 +53,7 @@ views {
 
   view containers_r3 of todoApp {
     title 'Containers: r3'
-    description 'r3 adds no components. It updates C-1, C-2, C-3, C-4 for delete (CAP-3). Flow F-3.'
+    description 'r3 adds no components. It updates C-1, C-2, C-4 for delete (CAP-3). Flow F-3.'
 
     include user
     include todoApp
@@ -87,13 +87,17 @@ views {
 
   dynamic view flow_f3_delete {
     title 'F-3 Delete a todo'
-    description 'r3. CAP-3. If the id is unknown, the API says so. Exception: if no todos remain, the frontend shows a message.'
+    description 'r3. CAP-3. If the id is unknown, the API says so. Step 4 runs F-2 to refresh the list, so the F-2 exception applies: if there are no todos, the frontend shows a message.'
 
     user -> todoApp.frontendWeb.webFe 'chooses delete on a todo'
     todoApp.frontendWeb.webFe -> todoApp.backend.todoApi 'asks to delete it by id'
     todoApp.backend.todoApi -> todoApp.backend.todoStore 'removes the file'
     todoApp.frontendWeb.webFe <- todoApp.backend.todoApi 'confirms the delete'
-    user <- todoApp.frontendWeb.webFe 'removes the todo and shows the refreshed list'
+    // Step 4: run F-2 (steps 2 to 4) to refresh the list
+    todoApp.frontendWeb.webFe -> todoApp.backend.todoApi 'F-2: asks for the list'
+    todoApp.backend.todoApi -> todoApp.backend.todoStore 'F-2: reads the files'
+    todoApp.frontendWeb.webFe <- todoApp.backend.todoApi 'F-2: returns the list'
+    user <- todoApp.frontendWeb.webFe 'F-2: shows the list'
   }
 
 }
