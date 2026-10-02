@@ -1,7 +1,7 @@
 # System Description: Todo App
 
 ## 0. Document Control
-- Version: 0.1.
+- Version: 0.2.
 - Owner: the architect.
 
 ## 1. System Boundary
@@ -91,7 +91,7 @@ Each one becomes an ADR in `architecture/adr/`. All are proposed until the archi
 | ID | Subsystem | Responsibility | 
 | --- | --- | --- | 
 | S-1 | `frontend-web` | user web app frontend to todos | 
-| S-2 | `backend ` | owns the lifecycle of todos and their storage |
+| S-2 | `backend` | owns the lifecycle of todos and their storage |
 | S-3 | `frontend-ios` | user iOS app frontend to todos | 
 
 ### 3.2. Interfaces and APIs
@@ -125,7 +125,7 @@ Rules:
 | C-1 | S-1 | `web-fe` | web application | Astro |
 | C-2 | S-2 | `todo-api` | api server | Next.js |
 | C-3 | S-2 | `todo-store` | files | Text file |
-| C-4 | S-1 | `ios-fe` | iOS application | SwiftUI |
+| C-4 | S-3 | `ios-fe` | iOS application | SwiftUI |
 
 ### 4.2. Data Flows
 
@@ -152,11 +152,7 @@ Exception:
 1. The user chooses delete on a todo.
 2. The frontend asks the API to delete it by id.
 3. The API removes the file and confirms. If the id is unknown, it says so.
-4. The frontend removes the todo from the list.
-5. The refreshed list of todos is presented to user.
-
-Exception:
-- if there are no todos then show a message.
+4. The frontend runs F-2 to refresh the list.
 
 ### 4.3. Error Handling and Fallbacks
 
@@ -165,11 +161,11 @@ Exception:
 ## 5. Release Strategy
 ### 5.1. Release Plan
 
-| Release | Actors | Components New | Components Updated | Flows |
+| Release | Actors | Components New | Components Updated | Flows Delivered |
 | --- | --- | --- | --- | --- |
 | r1 | A-1 | C-1, C-2, C-3 | none | F-1, F-2 |
 | r2 | A-1 | C-4 | none | F-1, F-2 |
-| r3 | A-1 | none | C-1, C-2, C-3, C-4 | F-3 |
+| r3 | A-1 | none | C-1, C-2, C-4 | F-3 |
 
 Each release gets a tag in `todo-spec`. Code repos pin to that tag.
 
