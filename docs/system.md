@@ -1,7 +1,7 @@
 # System Description: Todo App
 
 ## 0. Document Control
-- Version: 0.5.
+- Version: 0.6.
 - Owner: the architect.
 
 ## 1. System Boundary
@@ -22,7 +22,7 @@ A simple todo single-user app. A person can create, view and delete todos.
 
 Rules:
 - A todo text has 1 to 280 characters, counted as Unicode code points.
-- Leading and trailing whitespace (spaces, tabs and line breaks) is removed before the check and before saving. A text that is empty after this is refused.
+- Leading and trailing Unicode whitespace (characters with the Unicode White_Space property) is removed before the check and before saving. A text that is empty after this is refused.
 - A todo text is one line. A line break inside the text is refused. A line break is LF, CR, U+0085, U+2028 or U+2029.
 - Duplicate texts are allowed.
 - The list shows the oldest todo first, by created time. If two todos have the same time, they are ordered by id, ascending, compared as text.
@@ -118,6 +118,7 @@ Rules:
 Rules:
 - Only the API reads and writes the files. Frontends never touch storage.
 - The file name comes from the generated id, never from the todo text.
+- Ids are unique. Their format is set in the API contract.
 - A todo stays until it is deleted. There is no backup.
 
 ## 4. Component Design
