@@ -1,0 +1,41 @@
+// LikeC4 specification for the todo app.
+// Source: docs/system.md (v0.1).
+
+specification {
+
+  element actor {
+    style {
+      shape person
+    }
+  }
+
+  element system {
+    style {
+      color primary
+    }
+  }
+
+  element subsystem {
+    style {
+      color secondary
+    }
+  }
+
+  element component {
+    style {
+      shape component
+    }
+  }
+
+  element store {
+    style {
+      shape storage
+    }
+  }
+
+  // Release that adds the element or relationship (docs/system.md section 5.1).
+  tag r1
+  tag r2
+  tag r3
+
+}
