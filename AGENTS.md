@@ -71,3 +71,7 @@ In this file, `system.md` means `docs/system.md`.
 - Put every missing reason or option in your reply, and write "Not stated in system.md" in the ADR.
 - One ADR holds one decision. If a system.md row bundles two decisions, say so in your reply. For each part, give the reason or write "Not stated in system.md".
 - Mark each consequence Stated or Inferred. The architect confirms every Inferred line.
+- Split a decision only when its parts have different reasons. Parts that share one reason stay together.
+- If a decision affects no S-n or C-n, name the repos or documents that it affects.
+- An ADR is self-contained. It never refers to your reply.
+- A consequence adds information. It does not restate the reason or another consequence.
