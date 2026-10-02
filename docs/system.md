@@ -1,7 +1,7 @@
 # System Description: Todo App
 
 ## 0. Document Control
-- Version: 0.8.
+- Version: 0.9.
 - Owner: the architect.
 
 ## 1. System Boundary
@@ -81,12 +81,13 @@ Each one becomes an ADR in `architecture/adr/`. All are proposed until the archi
 | ADR | Decision | Reason |
 | --- | --- | --- |
 | 0001 | Web frontend in Astro | Simple, and good for learning |
-| 0002 | API is a separate service in Next.js | Keeps a real boundary between teams |
+| 0002 | API is a separate service, not part of the web frontend | Keeps a real boundary between teams |
 | 0003 | One text file per todo, no database | Simple, and enough for this scale |
 | 0004 | REST with an OpenAPI contract, owned by `todo-spec` | Teams work in parallel against one contract |
 | 0005 | iOS in SwiftUI, tested in the Xcode simulator, no App Store | Keeps r2 small |
 | 0006 | One repo per subsystem | Team and permission boundaries |
 | 0007 | One repo for the spec (`todo-spec`) and one repo for the project environment (`todo-platform`) | Team and permission boundaries |
+| 0008 | API in Fastify (Node, TypeScript) | A different technology from the web frontend, as separate teams would choose. High performance web framework |
 
 ## 3. System Architecture
 
@@ -128,7 +129,7 @@ Rules:
 | ID | Subsystem Owner | Component Name | Technology Pattern | Technology Type |
 | --- | --- | --- | --- | --- | 
 | C-1 | S-1 | `web-fe` | web application | Astro |
-| C-2 | S-2 | `todo-api` | api server | Next.js |
+| C-2 | S-2 | `todo-api` | api server | Fastify |
 | C-3 | S-2 | `todo-store` | files | Text file |
 | C-4 | S-3 | `ios-fe` | iOS application | SwiftUI |
 
@@ -188,5 +189,6 @@ Each release gets a tag in `todo-spec`. Code repos pin to that tag.
 - **Block**: a part of the system that one team owns. Each block has one repo.
 - **Contract:** the written description of the API. Frontends and the API both follow it.
 - **Release:** a named step (r1, r2, r3) with a git tag in `todo-spec`.
+- **todo-platform:** the project environment: sandbox image, policy files, provider profiles and scripts.
 
 
