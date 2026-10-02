@@ -31,13 +31,13 @@ model {
 
       todoApi = component 'todo-api' {
         #r1
-        technology 'Next.js'
-        description 'C-2. API server (ADR 0002). Implements I-1 api-todo, a REST API described in OpenAPI (ADR 0004). Owns validation of todo text, ids and list order (section 1.2). Reports health (section 2.1, Operability). Updated in r3 to delete todos (CAP-3). Flows F-1, F-2, F-3. Error handling: section 4.3.'
+        technology 'Fastify'
+        description 'C-2. API server (ADR 0002, ADR 0008). Implements I-1 api-todo, a REST API described in OpenAPI (ADR 0004). Owns validation of todo text, ids and list order (section 1.2). Reports health (section 2.1, Operability). Updated in r3 to delete todos (CAP-3). Flows F-1, F-2, F-3. Error handling: section 4.3.'
       }
 
       todoStore = store 'todo-store' {
         #r1
-        technology 'Text files'
+        technology 'Text file'
         description 'C-3. One text file per todo, no database (ADR 0003). Holds D-1 Todo (section 3.3). Only todo-api reads and writes it. Not updated in r3: todo-api removes files for delete (F-3).'
       }
     }
