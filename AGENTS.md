@@ -40,3 +40,5 @@ You assist the architect. You draft. The architect decides and merges.
 - A requirement for a channel refers to the scenarios it reuses. It does not copy them.
 - A rule's scenarios hold on every channel that exists at that release or later. Do not list each combination.
 - Examples must not assume a format that system.md leaves open. Use placeholders (X, Y) for such values.
+- Only a rule that a user can observe becomes a requirement. Name the document that owns each other rule (for example the API contract or a non-functional requirement).
+- IDs of merged items never change. New items get new numbers. A removed item leaves a gap.
