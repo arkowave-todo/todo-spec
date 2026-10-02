@@ -1,7 +1,7 @@
 # System Description: Todo App
 
 ## 0. Document Control
-- Version: 0.6.
+- Version: 0.7.
 - Owner: the architect.
 
 ## 1. System Boundary
@@ -23,7 +23,7 @@ A simple todo single-user app. A person can create, view and delete todos.
 Rules:
 - A todo text has 1 to 280 characters, counted as Unicode code points.
 - Leading and trailing Unicode whitespace (characters with the Unicode White_Space property) is removed before the check and before saving. A text that is empty after this is refused.
-- A todo text is one line. A line break inside the text is refused. A line break is LF, CR, U+0085, U+2028 or U+2029.
+- A todo text is one line. Whitespace is trimmed first (see the previous rule), so only a line break inside the text is refused. A line break is LF, CR, U+0085, U+2028 or U+2029.
 - Duplicate texts are allowed.
 - The list shows the oldest todo first, by created time. If two todos have the same time, they are ordered by id, ascending, compared as text.
 - Todo text is shown as plain text, never as markup.
@@ -72,7 +72,7 @@ These are inputs to the non-functional requirements. Numbers come in that step.
 - **Security:** No login. Single user app designed running on local machine. It is never exposed to the public internet.
 - **Safety of data:** a failed create must not leave a half-written todo.
 - **Performance:** the list feels instant for up to 1,000 todos.
-- **Operability:** each block starts with one command. The API reports if it is healthy.
+- **Operability:** each block starts with one command. For the iOS block, that command builds the app and launches it in the Xcode simulator. The API reports if it is healthy.
 
 ### 2.2. Technology Stack
 
@@ -92,11 +92,11 @@ Each one becomes an ADR in `architecture/adr/`. All are proposed until the archi
 
 ### 3.1. Subsystems
 
-| ID | Subsystem | Responsibility | 
-| --- | --- | --- | 
-| S-1 | `frontend-web` | user web app frontend to todos | 
-| S-2 | `backend` | owns the lifecycle of todos and their storage |
-| S-3 | `frontend-ios` | user iOS app frontend to todos | 
+| ID | Subsystem | Responsibility | Repo |
+| --- | --- | --- | --- |
+| S-1 | `frontend-web` | user web app frontend to todos | `todo-fe-web` |
+| S-2 | `backend` | owns the lifecycle of todos and their storage | `todo-api` |
+| S-3 | `frontend-ios` | user iOS app frontend to todos | `todo-fe-ios` |
 
 ### 3.2. Interfaces and APIs
 
