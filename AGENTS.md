@@ -7,8 +7,10 @@ and the design. The code repos build against it.
 You assist the architect. You draft. The architect decides and merges.
 
 ## Read first
-1. `docs/system.md`: what the system does. Its IDs are stable (CAP-, ADRs, A-, C-, D-, I-, S-).
+1. `docs/system.md`: what the system does. Its IDs are stable (CAP-, ADRs, A-, C-, D-, F-, I-, S-, F-).
 2. Anything that already exists under `architecture/` and `requirements/`.
+
+In this file, `system.md` means `docs/system.md`.
 
 ## Rules
 - Work on a branch named `agent/<task>`. Never commit to `main`.
@@ -62,8 +64,10 @@ You assist the architect. You draft. The architect decides and merges.
 - Sections: Status, Context, Options considered, Decision, Consequences, Affects, Related.
 - Status is Proposed. Only the architect sets Accepted or Superseded.
 - Context, Decision and the reason come only from system.md. Do not invent a reason.
-- Options considered: list at least two, including the chosen one. An option that system.md does not name is marked "Suggested, not decided". The architect confirms or removes it.
+- Options considered: list only the options that system.md names, including the chosen one. If it names no other, write "Not recorded in system.md". Put alternatives that you suggest in your reply, not in the ADR.
 - Consequences: say what gets easier and what gets harder.
 - Affects: the S-n and C-n IDs. Related: the NFR, FR and ADR IDs that the decision touches.
 - A decision that changes is a new ADR that supersedes the old one. Do not rewrite an accepted ADR.
 - Put every missing reason or option in your reply, and write "Not stated in system.md" in the ADR.
+- One ADR holds one decision. If a system.md row bundles two decisions, say so in your reply. For each part, give the reason or write "Not stated in system.md".
+- Mark each consequence Stated or Inferred. The architect confirms every Inferred line.
