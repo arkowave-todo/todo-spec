@@ -42,3 +42,13 @@ You assist the architect. You draft. The architect decides and merges.
 - Examples must not assume a format that system.md leaves open. Use placeholders (X, Y) for such values.
 - Only a rule that a user can observe becomes a requirement. Name the document that owns each other rule (for example the API contract or a non-functional requirement).
 - IDs of merged items never change. New items get new numbers. A removed item leaves a gap.
+
+## Non-functional requirements
+- Write them in `requirements/non-functional.md`. Each is NFR-n, in a category (security, performance, safety of data, operability, or another that system.md names).
+- Every NFR is measurable. Give the metric, the target, the condition (load, data size, environment), how it is measured, and the stage that verifies it (inner loop, outer loop, non-functional test, release).
+- Start from the quality inputs in system.md. Every pointer from a functional requirement to a non-functional one needs a matching NFR.
+- If system.md gives no number, propose one and mark it Proposed. Never present a guess as a decision.
+- Say which subsystem (S-n) or the whole system each NFR applies to. Do not name components.
+- Tag each NFR with the release from which it must hold.
+- Do not repeat a functional rule. Refer to it by ID.
+- End with a trace table: input in system.md or functional rule, NFR, applies to, stage, release.
