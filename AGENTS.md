@@ -23,6 +23,8 @@ You assist the architect. You draft. The architect decides and merges.
 - Put the `system.md` ID (for example C-2) in the description of each element.
 - Validate from inside the folder: `cd architecture && npx likec4 validate`.
   It checks every `.c4` file there. Fix every error before you finish.
+- Descriptions state the responsibility of an element and cite IDs (CAP, FR, F, NFR, ADR, section). Never restate rules, limits, messages or orderings. They live in system.md and the requirements.
+- The "Source:" comment in each file names the document and carries no version number.
 
 ## Requirements
 - Write functional requirements in `requirements/functional.md`, one per user-visible capability.
