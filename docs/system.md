@@ -1,14 +1,14 @@
 # System Description: Todo App
 
 ## 0. Document Control
-- Version: 0.2.
+- Version: 0.3.
 - Owner: the architect.
 
 ## 1. System Boundary
 
 ### 1.1. Purpose
 
-A simple todo single-user app. A person creates todos and can then see them again.
+A simple todo single-user app. A person can create, view and delete todos.
 
 ### 1.2. Capabilities
 
@@ -29,9 +29,9 @@ Rules:
 
 #### 1.3.1. Human Actors
 
-| ID | Actor | Type | What they do | Release |
-| --- | --- | --- | --- | --- |
-| A-1 | Todo user | Human | Creates and views todos through a frontend app | All releases |
+| ID | Actor | Type | What they do |
+| --- | --- | --- | --- | 
+| A-1 | Todo user | Human | Creates, views and deletes todos through a frontend app | 
 
 #### 1.3.2. External Systems
 
@@ -152,7 +152,10 @@ Exception:
 1. The user chooses delete on a todo.
 2. The frontend asks the API to delete it by id.
 3. The API removes the file and confirms. If the id is unknown, it says so.
-4. The frontend runs F-2 to refresh the list.
+4. The frontend runs F-2 from step 2 to refresh the list.
+
+Error:
+- if the id is unknown, the frontend shows a message, then refreshes the list as in step 4.
 
 ### 4.3. Error Handling and Fallbacks
 
